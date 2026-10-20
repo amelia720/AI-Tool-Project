@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 /**
  * Handles REST API requests for products.
  */
@@ -57,9 +60,16 @@ public class ProductController
      * Adds a new product to the database.
      */
     @PostMapping("/products")
+    @ApiResponse(responseCode = "201", description = "Product created")
     public ResponseEntity<Void> addProduct(
-            @RequestBody Product product) throws SQLException
+            @Valid @RequestBody ProductRequest request) throws SQLException
     {
+        Product product = new Product(
+            request.getName(),
+            request.getCategory(),
+            request.getPrice(),
+            request.getStock()
+        );  
         Connection conn = MyConnection.getConnection();
 
         ProductDAO.insertProduct(conn, product);
@@ -74,9 +84,15 @@ public class ProductController
     @PutMapping("/products/{productId}")
     public ResponseEntity<Void> updateProduct(
             @PathVariable("productId") int productId,
-            @RequestBody Product product) throws SQLException
+            @Valid @RequestBody ProductRequest request) throws SQLException
     {
-        product.setProductId(productId);
+        Product product = new Product(
+            productId,
+            request.getName(),
+            request.getCategory(),
+            request.getPrice(),
+            request.getStock()
+        );
 
         Connection conn = MyConnection.getConnection();
 
@@ -109,4 +125,6 @@ public class ProductController
 
         return ResponseEntity.ok().build();
     }
+
+    
 }

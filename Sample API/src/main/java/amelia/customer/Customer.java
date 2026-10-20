@@ -32,7 +32,15 @@ public class Customer
         setEmail(email);  // Use setter so it gets validated
         setPhone(phone);  // Use setter so it gets validated
     }
-
+    // New customer - database will generate the ID
+    public Customer(String fname, String sname, String address, String email, String phone) 
+    {
+        this.fname = fname;
+        this.sname = sname;
+        this.address = address;
+        setEmail(email);  // Use setter so it gets validated
+        setPhone(phone);  // Use setter so it gets validated
+    }
     /**
      * This is the default constructor (in case I want to set the values later).
      */

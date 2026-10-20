@@ -1,647 +1,754 @@
 {
     "openapi": "3.1.0",
     "info": {
-        "title": "OpenAPI definition",
-        "version": "v0"
+      "title": "OpenAPI definition",
+      "version": "v0"
     },
     "servers": [
-        {
-            "url": "http://localhost:8080",
-            "description": "Generated server url"
-        }
+      {
+        "url": "http://localhost:8080",
+        "description": "Generated server url"
+      }
     ],
     "paths": {
-        "/products/{productId}": {
-            "get": {
-                "tags": [
-                    "product-controller"
-                ],
-                "operationId": "getProductById",
-                "parameters": [
-                    {
-                        "name": "productId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "*/*": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Product"
-                                }
-                            }
-                        }
-                    }
+      "/products/{productId}": {
+        "get": {
+          "tags": [
+            "product-controller"
+          ],
+          "operationId": "getProductById",
+          "parameters": [
+            {
+              "name": "productId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Product"
+                  }
                 }
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "product-controller"
+          ],
+          "operationId": "updateProduct",
+          "parameters": [
+            {
+              "name": "productId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductRequest"
+                }
+              }
             },
-            "put": {
-                "tags": [
-                    "product-controller"
-                ],
-                "operationId": "updateProduct",
-                "parameters": [
-                    {
-                        "name": "productId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Product"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "product-controller"
-                ],
-                "operationId": "deleteProduct",
-                "parameters": [
-                    {
-                        "name": "productId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK"
             }
+          }
         },
-        "/invoices/{invoiceId}/items/{productId}": {
-            "put": {
-                "tags": [
-                    "invoice-controller"
-                ],
-                "operationId": "updateInvoiceItem",
-                "parameters": [
-                    {
-                        "name": "invoiceId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    },
-                    {
-                        "name": "productId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/InvoiceItem"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "invoice-controller"
-                ],
-                "operationId": "deleteInvoiceItem",
-                "parameters": [
-                    {
-                        "name": "invoiceId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    },
-                    {
-                        "name": "productId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
+        "delete": {
+          "tags": [
+            "product-controller"
+          ],
+          "operationId": "deleteProduct",
+          "parameters": [
+            {
+              "name": "productId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
             }
-        },
-        "/invoices/{invoiceId}/date": {
-            "put": {
-                "tags": [
-                    "invoice-controller"
-                ],
-                "operationId": "updateInvoiceDate",
-                "parameters": [
-                    {
-                        "name": "invoiceId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
             }
-        },
-        "/customers/{customerId}": {
-            "get": {
-                "tags": [
-                    "customer-controller"
-                ],
-                "operationId": "getCustomerById",
-                "parameters": [
-                    {
-                        "name": "customerId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "*/*": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Customer"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "customer-controller"
-                ],
-                "operationId": "updateCustomer",
-                "parameters": [
-                    {
-                        "name": "customerId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Customer"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "customer-controller"
-                ],
-                "operationId": "deleteCustomer",
-                "parameters": [
-                    {
-                        "name": "customerId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
-        "/products": {
-            "get": {
-                "tags": [
-                    "product-controller"
-                ],
-                "operationId": "getProducts",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "*/*": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Product"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "product-controller"
-                ],
-                "operationId": "addProduct",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Product"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
-        "/invoices/{invoiceId}/items": {
-            "post": {
-                "tags": [
-                    "invoice-controller"
-                ],
-                "operationId": "addInvoiceItem",
-                "parameters": [
-                    {
-                        "name": "invoiceId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/InvoiceItem"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
-        "/invoices/customer/{customerId}": {
-            "post": {
-                "tags": [
-                    "invoice-controller"
-                ],
-                "operationId": "createInvoice",
-                "parameters": [
-                    {
-                        "name": "customerId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "*/*": {
-                                "schema": {
-                                    "type": "integer",
-                                    "format": "int32"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/customers": {
-            "get": {
-                "tags": [
-                    "customer-controller"
-                ],
-                "operationId": "getCustomers",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "*/*": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Customer"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "customer-controller"
-                ],
-                "operationId": "addCustomer",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Customer"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
-        "/invoices": {
-            "get": {
-                "tags": [
-                    "invoice-controller"
-                ],
-                "operationId": "getInvoices",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "*/*": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Invoice"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/invoices/{invoiceId}": {
-            "get": {
-                "tags": [
-                    "invoice-controller"
-                ],
-                "operationId": "getInvoiceById",
-                "parameters": [
-                    {
-                        "name": "invoiceId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "*/*": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Invoice"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "invoice-controller"
-                ],
-                "operationId": "deleteInvoice",
-                "parameters": [
-                    {
-                        "name": "invoiceId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
-        "/": {
-            "get": {
-                "tags": [
-                    "general-controller"
-                ],
-                "operationId": "index",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "*/*": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+          }
         }
+      },
+      "/invoices/{invoiceId}/items/{productId}": {
+        "put": {
+          "tags": [
+            "invoice-controller"
+          ],
+          "operationId": "updateInvoiceItem",
+          "parameters": [
+            {
+              "name": "invoiceId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            {
+              "name": "productId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceQuantityRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "invoice-controller"
+          ],
+          "operationId": "deleteInvoiceItem",
+          "parameters": [
+            {
+              "name": "invoiceId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            {
+              "name": "productId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/invoices/{invoiceId}/date": {
+        "put": {
+          "tags": [
+            "invoice-controller"
+          ],
+          "operationId": "updateInvoiceDate",
+          "parameters": [
+            {
+              "name": "invoiceId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceDateRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/customers/{customerId}": {
+        "get": {
+          "tags": [
+            "customer-controller"
+          ],
+          "operationId": "getCustomerById",
+          "parameters": [
+            {
+              "name": "customerId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Customer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "customer-controller"
+          ],
+          "operationId": "updateCustomer",
+          "parameters": [
+            {
+              "name": "customerId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "customer-controller"
+          ],
+          "operationId": "deleteCustomer",
+          "parameters": [
+            {
+              "name": "customerId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/products": {
+        "get": {
+          "tags": [
+            "product-controller"
+          ],
+          "operationId": "getProducts",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Product"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "product-controller"
+          ],
+          "operationId": "addProduct",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "description": "Product created"
+            }
+          }
+        }
+      },
+      "/invoices/{invoiceId}/items": {
+        "post": {
+          "tags": [
+            "invoice-controller"
+          ],
+          "operationId": "addInvoiceItem",
+          "parameters": [
+            {
+              "name": "invoiceId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceItemRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "description": "Invoice item created"
+            }
+          }
+        }
+      },
+      "/invoices/customer/{customerId}": {
+        "post": {
+          "tags": [
+            "invoice-controller"
+          ],
+          "operationId": "createInvoice",
+          "parameters": [
+            {
+              "name": "customerId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Invoice created",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/customers": {
+        "get": {
+          "tags": [
+            "customer-controller"
+          ],
+          "operationId": "getCustomers",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Customer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "customer-controller"
+          ],
+          "operationId": "addCustomer",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "description": "Customer created"
+            }
+          }
+        }
+      },
+      "/invoices": {
+        "get": {
+          "tags": [
+            "invoice-controller"
+          ],
+          "operationId": "getInvoices",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Invoice"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/invoices/{invoiceId}": {
+        "get": {
+          "tags": [
+            "invoice-controller"
+          ],
+          "operationId": "getInvoiceById",
+          "parameters": [
+            {
+              "name": "invoiceId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Invoice"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "invoice-controller"
+          ],
+          "operationId": "deleteInvoice",
+          "parameters": [
+            {
+              "name": "invoiceId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/": {
+        "get": {
+          "tags": [
+            "general-controller"
+          ],
+          "operationId": "index",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "components": {
-        "schemas": {
-            "Product": {
-                "type": "object",
-                "properties": {
-                    "productId": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "category": {
-                        "type": "string"
-                    },
-                    "price": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "stock": {
-                        "type": "integer",
-                        "format": "int32"
-                    }
-                }
+      "schemas": {
+        "ProductRequest": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
             },
-            "InvoiceItem": {
-                "type": "object",
-                "properties": {
-                    "productId": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "productName": {
-                        "type": "string"
-                    },
-                    "category": {
-                        "type": "string"
-                    },
-                    "unitPrice": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "quantity": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "totalAmount": {
-                        "type": "number",
-                        "format": "double"
-                    }
-                }
+            "category": {
+              "type": "string",
+              "minLength": 1
             },
-            "Customer": {
-                "type": "object",
-                "properties": {
-                    "customerId": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "fname": {
-                        "type": "string"
-                    },
-                    "sname": {
-                        "type": "string"
-                    },
-                    "address": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
-                    },
-                    "phone": {
-                        "type": "string"
-                    }
-                }
+            "price": {
+              "type": "number",
+              "format": "double",
+              "minimum": 0
             },
-            "Invoice": {
-                "type": "object",
-                "properties": {
-                    "invoiceId": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "invoiceDate": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "customer": {
-                        "$ref": "#/components/schemas/Customer"
-                    },
-                    "items": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/InvoiceItem"
-                        }
-                    },
-                    "totalAmount": {
-                        "type": "number",
-                        "format": "double"
-                    }
-                }
+            "stock": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
             }
+          },
+          "required": [
+            "category",
+            "name",
+            "price",
+            "stock"
+          ]
+        },
+        "InvoiceQuantityRequest": {
+          "type": "object",
+          "properties": {
+            "quantity": {
+              "type": "integer",
+              "format": "int32",
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
+            "quantity"
+          ]
+        },
+        "InvoiceDateRequest": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "date"
+          ]
+        },
+        "CustomerRequest": {
+          "type": "object",
+          "properties": {
+            "fname": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sname": {
+              "type": "string",
+              "minLength": 1
+            },
+            "address": {
+              "type": "string",
+              "minLength": 1
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "minLength": 1
+            },
+            "phone": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\d{10}"
+            }
+          },
+          "required": [
+            "address",
+            "email",
+            "fname",
+            "phone",
+            "sname"
+          ]
+        },
+        "InvoiceItemRequest": {
+          "type": "object",
+          "properties": {
+            "productId": {
+              "type": "integer",
+              "format": "int32",
+              "exclusiveMinimum": 0
+            },
+            "quantity": {
+              "type": "integer",
+              "format": "int32",
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
+            "productId",
+            "quantity"
+          ]
+        },
+        "Product": {
+          "type": "object",
+          "properties": {
+            "productId": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "name": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "price": {
+              "type": "number",
+              "format": "double"
+            },
+            "stock": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        },
+        "Customer": {
+          "type": "object",
+          "properties": {
+            "customerId": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "fname": {
+              "type": "string"
+            },
+            "sname": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            }
+          }
+        },
+        "Invoice": {
+          "type": "object",
+          "properties": {
+            "invoiceId": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "invoiceDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "customer": {
+              "$ref": "#/components/schemas/Customer"
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/InvoiceItem"
+              }
+            },
+            "totalAmount": {
+              "type": "number",
+              "format": "double"
+            }
+          }
+        },
+        "InvoiceItem": {
+          "type": "object",
+          "properties": {
+            "productId": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "productName": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "unitPrice": {
+              "type": "number",
+              "format": "double"
+            },
+            "quantity": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "totalAmount": {
+              "type": "number",
+              "format": "double"
+            }
+          }
         }
+      }
     }
-}
+  }

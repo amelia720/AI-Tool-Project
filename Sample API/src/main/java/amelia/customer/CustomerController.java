@@ -1,6 +1,7 @@
 package amelia.customer;
 
 import amelia.MyConnection;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.http.ResponseEntity;
+
+import jakarta.validation.Valid;
 
 /**
  * Handles REST API requests for customers.
@@ -60,13 +63,21 @@ public class CustomerController
     /**
      * Adds a new customer to the database.
      *
-     * @param customer the customer details sent in the request
+     * @param request the customer details sent in the request
      * @return a 201 Created response
      * @throws SQLException if there is a problem with the database
      */
     @PostMapping("/customers")
-    public ResponseEntity<Void> addCustomer(@RequestBody Customer customer) throws SQLException
+    @ApiResponse(responseCode = "201", description = "Customer created")
+    public ResponseEntity<Void> addCustomer(@Valid @RequestBody CustomerRequest request) throws SQLException
     {
+        Customer customer = new Customer(
+            request.getFname(),
+            request.getSname(),
+            request.getAddress(),
+            request.getEmail(),
+            request.getPhone()
+        );
         Connection conn = MyConnection.getConnection();
 
         CustomerDAO.insertCustomer(conn, customer);
@@ -77,16 +88,23 @@ public class CustomerController
      * Updates an existing customer.
      *
      * @param customerId the ID of the customer to update
-     * @param customer the new customer details
+     * @param request the new customer details
      * @return 200 OK if updated, or 404 Not Found if the customer does not exist
      * @throws SQLException if there is a problem with the database
      */
     @PutMapping("/customers/{customerId}")
     public ResponseEntity<Void> updateCustomer(
             @PathVariable("customerId") int customerId,
-            @RequestBody Customer customer) throws SQLException
+            @Valid @RequestBody CustomerRequest request) throws SQLException
     {
-        customer.setCustomerId(customerId);
+        Customer customer = new Customer(
+            customerId,
+            request.getFname(),
+            request.getSname(),
+            request.getAddress(),
+            request.getEmail(),
+            request.getPhone()
+        );
 
         Connection conn = MyConnection.getConnection();
 

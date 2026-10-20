@@ -36,7 +36,14 @@ public class Product
         setPrice(price);  // Use setter to apply validation
         setStock(stock);  // Use setter to apply validation
     }
-
+    // New product - database will generate the ID
+    public Product(String name, String category, double price, int stock) 
+    {
+        this.name = name;
+        this.category = category;
+        setPrice(price);  // Use setter to apply validation
+        setStock(stock);  // Use setter to apply validation
+    }
     /**
      * Empty constructor, often used when creating a product and filling fields later.
      */

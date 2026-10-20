@@ -1,6 +1,8 @@
 package amelia.invoice;
 
 import amelia.MyConnection;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -62,6 +64,7 @@ public class InvoiceController
      * Creates a new invoice for a customer.
      */
     @PostMapping("/invoices/customer/{customerId}")
+    @ApiResponse(responseCode = "201", description = "Invoice created")
     public ResponseEntity<Integer> createInvoice(
             @PathVariable("customerId") int customerId) throws SQLException
     {
@@ -84,9 +87,10 @@ public class InvoiceController
      * Adds a product to an invoice.
      */
     @PostMapping("/invoices/{invoiceId}/items")
+    @ApiResponse(responseCode = "201", description = "Invoice item created")
     public ResponseEntity<Void> addInvoiceItem(
             @PathVariable("invoiceId") int invoiceId,
-            @RequestBody InvoiceItem item) throws SQLException
+            @Valid @RequestBody InvoiceItemRequest request) throws SQLException
     {
         Connection conn = MyConnection.getConnection();
 
@@ -94,8 +98,8 @@ public class InvoiceController
 
         invoiceDAO.addInvoiceItem(
             invoiceId,
-            item.getProductId(),
-            item.getQuantity()
+            request.getProductId(),
+            request.getQuantity()
         );
 
         return ResponseEntity.status(201).build();
@@ -109,7 +113,7 @@ public class InvoiceController
     public ResponseEntity<Void> updateInvoiceItem(
             @PathVariable("invoiceId") int invoiceId,
             @PathVariable("productId") int productId,
-            @RequestBody InvoiceItem item) throws SQLException
+            @Valid @RequestBody InvoiceQuantityRequest request) throws SQLException
     {
         Connection conn = MyConnection.getConnection();
 
@@ -118,7 +122,7 @@ public class InvoiceController
         boolean updated = invoiceDAO.updateInvoiceItemQuantity(
             invoiceId,
             productId,
-            item.getQuantity()
+            request.getQuantity()
         );
 
         if (!updated)
@@ -136,14 +140,14 @@ public class InvoiceController
     @PutMapping("/invoices/{invoiceId}/date")
     public ResponseEntity<Void> updateInvoiceDate(
             @PathVariable("invoiceId") int invoiceId,
-            @RequestBody String newDate) throws SQLException
+            @Valid @RequestBody InvoiceDateRequest request) throws SQLException
     {
         Connection conn = MyConnection.getConnection();
 
         int rowsUpdated = InvoiceDAO.updateInvoiceDate(
             conn,
             invoiceId,
-            newDate
+            request.getDate()
         );
 
         if (rowsUpdated == 0)
