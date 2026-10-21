@@ -13,3 +13,11 @@ for path in data["paths"]:
 
     for method in data["paths"][path]:
         print("Method:", method)
+
+        operation = data["paths"][path][method]
+        print("Operation ID:", operation["operationId"])
+
+        parameters = operation.get("parameters", [])
+
+        for parameter in parameters:
+            print("Parameter:", parameter["name"])
