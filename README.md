@@ -32,12 +32,27 @@ The project will include:
 - Maven
 - MariaDB
 
+## Iteration 1
+
+For the first iteration, I focused on creating a REST API that I can use to develop and test the project.
+
+This iteration included:
+
+- Adding a REST API to my existing Java Shop Manager application
+- Adding REST endpoints for customers, products and invoices
+- Testing the API endpoints using Bruno
+- Adding OpenAPI and Swagger UI using springdoc
+- Adding validation so required API inputs are shown in the OpenAPI description
+- Generating and saving the `openapi.json` file
+- Starting a Python parser to read the OpenAPI file
+- Extracting paths, HTTP methods, operation IDs and parameters
+- Extracting request body schemas and their properties
+
 ## Sample API
 
 The `Sample API` folder contains a small Java REST API that I am using to develop and test my project. It is not the main part of the project.
 
 It is based on a Java application I created in second year. I added Spring Boot REST endpoints for customers, products and invoices. I also added OpenAPI and Swagger UI.
-
 ### Running the Sample API
 
 If you would like to test the Sample API:
@@ -51,7 +66,8 @@ If you would like to test the Sample API:
 
    `mvn clean compile`
 
-7. Run `ShopManagerApplication.java`.
+7. Run `ShopManagerApplication.java` to start the REST API.
+8. Run `RUN_CODE_HERE.java` to start the Shop Manager GUI.
 
 Once the application is running, the API will be available at:
 
@@ -66,6 +82,18 @@ The generated OpenAPI JSON can be viewed at:
 `http://localhost:8080/v3/api-docs`
 
 A saved copy is also included in the Sample API folder as `openapi.json`.
+
+### Running the OpenAPI Parser
+
+The Python parser can be found in the `Parser` folder.
+
+It reads the saved `openapi.json` file and extracts information from the OpenAPI description.
+
+From the main project folder, run:
+
+`python3 Parser/parser.py`
+
+The parser currently extracts information such as paths, HTTP methods, operation IDs, parameters and request body schemas.
 
 ## Installation
 
