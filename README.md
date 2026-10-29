@@ -25,7 +25,7 @@ The project will include:
 
 - Python
 - Java
-- MCP SDK
+- MCP Python SDK
 - OpenAPI
 - REST APIs
 - Spring Boot
@@ -48,26 +48,27 @@ This iteration included:
 - Extracting paths, HTTP methods, operation IDs and parameters
 - Extracting request body schemas and their properties
 
+MCP tool generation has not been implemented yet. This will be the main focus of Iteration 2.
+
 ## Sample API
 
 The `Sample API` folder contains a small Java REST API that I am using to develop and test my project. It is not the main part of the project.
 
 It is based on a Java application I created in second year. I added Spring Boot REST endpoints for customers, products and invoices. I also added OpenAPI and Swagger UI.
+
 ### Running the Sample API
 
 If you would like to test the Sample API:
 
-1. Download or clone this repository.
+1. Clone this repository.
 2. Install Java, Maven and MariaDB.
 3. Create a MariaDB database called `Customers`.
 4. Import `Sample API/DatabaseDump/customers.sql` into the database.
-5. Open the `Sample API` folder.
-6. Run:
-
-   `mvn clean compile`
-
-7. Run `ShopManagerApplication.java` to start the REST API.
-8. Run `RUN_CODE_HERE.java` to start the Shop Manager GUI.
+5. Check the database connection settings in `MyConnection.java` and update the username and password if needed.
+6. Open the `Sample API` folder.
+7. Run `mvn clean compile` in the terminal to compile the project.
+8. Run `ShopManagerApplication.java` to start the REST API.
+9. Run `RUN_CODE_HERE.java` to start the Shop Manager GUI.
 
 Once the application is running, the API will be available at:
 
