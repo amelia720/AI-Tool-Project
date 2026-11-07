@@ -84,6 +84,7 @@ public class CustomerController
 
         return ResponseEntity.status(201).build();
     }
+    
     /**
      * Updates an existing customer.
      *
@@ -95,18 +96,25 @@ public class CustomerController
     @PutMapping("/customers/{customerId}")
     public ResponseEntity<Void> updateCustomer(
             @PathVariable("customerId") int customerId,
-            @Valid @RequestBody CustomerRequest request) throws SQLException
+            @RequestBody CustomerUpdateRequest request) throws SQLException
     {
+        Connection conn = MyConnection.getConnection();
+
+        Customer existing = CustomerDAO.getCustomerById(conn, customerId);
+
+        if (existing == null)
+        {
+            return ResponseEntity.notFound().build();
+        }
+
         Customer customer = new Customer(
             customerId,
-            request.getFname(),
-            request.getSname(),
-            request.getAddress(),
-            request.getEmail(),
-            request.getPhone()
+            request.getFname() != null ? request.getFname() : existing.getFname(),
+            request.getSname() != null ? request.getSname() : existing.getSname(),
+            request.getAddress() != null ? request.getAddress() : existing.getAddress(),
+            request.getEmail() != null ? request.getEmail() : existing.getEmail(),
+            request.getPhone() != null ? request.getPhone() : existing.getPhone()
         );
-
-        Connection conn = MyConnection.getConnection();
 
         int rowsUpdated = CustomerDAO.updateCustomer(conn, customer);
 
@@ -117,6 +125,7 @@ public class CustomerController
 
         return ResponseEntity.ok().build();
     }
+
     /**
      * Deletes a customer using their customer ID.
      *

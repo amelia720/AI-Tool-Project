@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 /**
@@ -78,23 +79,35 @@ public class ProductController
     }
 
 
+    
     /**
-     * Updates an existing product.
+     * Add Test Description for MCP Tool
      */
+    @Operation(
+        summary = "Update a product",
+        description = "Update a product by its ID"
+    )
     @PutMapping("/products/{productId}")
     public ResponseEntity<Void> updateProduct(
             @PathVariable("productId") int productId,
-            @Valid @RequestBody ProductRequest request) throws SQLException
+            @RequestBody ProductUpdateRequest request) throws SQLException
     {
+        Connection conn = MyConnection.getConnection();
+
+        Product existing = ProductDAO.getProductById(conn, productId);
+
+        if (existing == null)
+        {
+            return ResponseEntity.notFound().build();
+        }
+
         Product product = new Product(
             productId,
-            request.getName(),
-            request.getCategory(),
-            request.getPrice(),
-            request.getStock()
+            request.getName() != null ? request.getName() : existing.getName(),
+            request.getCategory() != null ? request.getCategory() : existing.getCategory(),
+            request.getPrice() != null ? request.getPrice() : existing.getPrice(),
+            request.getStock() != null ? request.getStock() : existing.getStock()
         );
-
-        Connection conn = MyConnection.getConnection();
 
         int rowsUpdated = ProductDAO.updateProduct(conn, product);
 
@@ -105,6 +118,7 @@ public class ProductController
 
         return ResponseEntity.ok().build();
     }
+
 
 
     /**

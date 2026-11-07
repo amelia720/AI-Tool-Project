@@ -304,14 +304,15 @@ public class InvoiceDAO {
                         rs.getString("phone")
                 );
 
-                Invoice invoice = new Invoice();
-                invoice.setInvoiceId(rs.getInt("invoiceId"));
-                invoice.setInvoiceDate(rs.getTimestamp("invoiceDate").toLocalDateTime());
-                invoice.setCustomer(customer);
-                invoice.setItems(new ArrayList<>());
-                invoice.setTotalAmount(rs.getDouble("total"));
+                int invoiceId = rs.getInt("invoiceId");
 
-                invoices.add(invoice);
+                // Get the full invoice, including its items
+                Invoice invoice = getInvoiceById(invoiceId);
+
+                if (invoice != null)
+                {
+                    invoices.add(invoice);
+                }
             }
         }
 
