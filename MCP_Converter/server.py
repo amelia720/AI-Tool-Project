@@ -1,11 +1,8 @@
-
-import sys
 import json
 import httpx
 
-sys.path.insert(0, ".")
 
-from Parser.parser import apiOperations
+from parser import apiOperations
 from mcp.server import MCPServer
 from mcp.types import Tool, CallToolResult, TextContent
 
