@@ -66,6 +66,7 @@ for path in data["paths"]:
             "method": method,
             "path": path,
             "serverUrl": serverUrl,
+            "parameterLocations": {},
             "inputSchema": {
                 "type": "object",
                 "properties": {},
@@ -82,6 +83,8 @@ for path in data["paths"]:
         for parameter in parameters:
 
             parameterName = parameter["name"]
+
+            operationInfo["parameterLocations"][parameterName] = parameter["in"]
 
             # Add parameters to the input schema
             inputSchema["properties"][parameterName] = getSchemaDetails(
@@ -107,6 +110,8 @@ for path in data["paths"]:
 
             # Go through body inputs
             for propertyName in properties:
+                
+                operationInfo["parameterLocations"][propertyName] = "body"
 
                 # Add request body fields to the input schema
                 inputSchema["properties"][propertyName] = properties[propertyName]
@@ -157,7 +162,9 @@ for path in data["paths"]:
         apiOperations.append(operationInfo)
 
 
-# Print API operations
-print("\nAPI Operations:")
-for operation in apiOperations:
-    print(json.dumps(operation, indent=4))
+if __name__ == "__main__":
+
+    # Print API operations
+    print("\nAPI Operations:")
+    for operation in apiOperations:
+        print(json.dumps(operation, indent=4))
