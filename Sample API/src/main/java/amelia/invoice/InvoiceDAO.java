@@ -295,14 +295,6 @@ public class InvoiceDAO {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                Customer customer = new Customer(
-                        rs.getInt("customerId"),
-                        rs.getString("fname"),
-                        rs.getString("sname"),
-                        rs.getString("address"),
-                        rs.getString("email"),
-                        rs.getString("phone")
-                );
 
                 int invoiceId = rs.getInt("invoiceId");
 
